@@ -20,6 +20,10 @@
             android:name=".Listar"
             android:label="@string/title_activity_listar" >
         </activity>
+        <activity
+            android:name=".Activity2"
+            android:label="@string/title_activity_activity2" >
+        </activity>
     </application>
 
 </manifest>
