@@ -45,6 +45,10 @@
                 android:id="@+id/btnOK"
                 android:text="OK"
                 android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:text="DELETE" />
         </TableLayout>
     </RelativeLayout>
 </RelativeLayout>
