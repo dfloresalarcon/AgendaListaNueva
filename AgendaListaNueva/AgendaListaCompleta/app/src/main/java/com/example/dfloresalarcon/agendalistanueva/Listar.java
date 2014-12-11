@@ -26,6 +26,9 @@ public class Listar extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar);
 
+        //CAMBIAR TITULO A LA ACTIVITY
+        setTitle("All Contacts");
+
         //creamos un intent que recibe al intent que esta volando sin coger.
         Intent intent = getIntent();
 
@@ -73,13 +76,25 @@ public class Listar extends ListActivity {
                 //... como no he modificado el contacto enviado a la activity2 en el array, lo busco y digo que si el contacto que envié es igual a alguno que tengo en el array...
                 if (contacts.get(i).getName().toString().equalsIgnoreCase(contact.getName().toString()) && contacts.get(i).getPhone().toString().equalsIgnoreCase(contact.getPhone().toString()) )
                 {
-                    //contacto.set index, nuevocontacto --> es decir, modifico el contacto entero encontrado en la posicion i
-                    contacts.set(i, newContact);
-                    //un mensaje de toast para ver que objeto obtuve antes (el del intent data) RECIBIDO DE LA ACTIVITY2
-                    String msg = "GOT Object "+newContact.getName().toString()+"-->"+newContact.getPhone().toString();
+                    if (newContact.getName().toString().equalsIgnoreCase("deleteThis"))
+                    {
 
-                    //muestro el mensaje
-                    showToast(msg);
+                        String msg = "removing Object "+contacts.get(i).getName().toString();
+                        contacts.remove(contact);
+
+                        //muestro el mensaje
+                        showToast(msg);
+
+                    }
+                    else {
+                        //contacto.set index, nuevocontacto --> es decir, modifico el contacto entero encontrado en la posicion i
+                        contacts.set(i, newContact);
+                        //un mensaje de toast para ver que objeto obtuve antes (el del intent data) RECIBIDO DE LA ACTIVITY2
+                        String msg = "modifying Object " + newContact.getName().toString() + "-->" + newContact.getPhone().toString();
+
+                        //muestro el mensaje
+                        showToast(msg);
+                    }
 
                     //creo un intento nuevo donde voy a mandar el arraylist, esta vez con el objeto modificado ya.
                     Intent intent = new Intent(Listar.this, MainActivity.class);
@@ -93,6 +108,7 @@ public class Listar extends ListActivity {
                     //por ultimo finalizo la activity actual.
                     finish();
                 }
+
             }
 
         }

@@ -29,6 +29,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //CAMBIAR TITULO A LA ACTIVITY
+        setTitle("Add Contact");
+
         //Llamamos a todos los graficos del XML para poder usarlos---
         final EditText name = (EditText)findViewById(R.id.txtName);
         final EditText phone = (EditText)findViewById(R.id.txtPhone);
@@ -37,14 +40,15 @@ public class MainActivity extends Activity {
         //LLAMADA HASTA AQUI-----------------------------------------
 
         //-----------editamos el color de fondo de los txt Y Btns.----------------/
-        name.setBackgroundColor(Color.BLACK);
-        phone.setBackgroundColor(Color.BLACK);
+        name.setBackgroundColor(Color.GRAY);
+        phone.setBackgroundColor(Color.GRAY);
         name.setTextColor(Color.WHITE);
         phone.setTextColor(Color.WHITE);
-        add.setBackgroundColor(Color.BLACK);
-        list.setBackgroundColor(Color.BLACK);
+        add.setBackgroundColor(Color.GREEN);
+        list.setBackgroundColor(Color.YELLOW);
         add.setTextColor(Color.WHITE);
-        list.setTextColor(Color.WHITE);
+        list.setTextColor(Color.BLACK);
+
         //----------------------------hasta aqui----------------------------------
 
         //--------------- abrimos el onclicklistener de add.--------------------

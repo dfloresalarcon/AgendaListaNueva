@@ -24,6 +24,10 @@
             android:name=".Activity2"
             android:label="@string/title_activity_activity2" >
         </activity>
+        <activity
+            android:name=".Borrar"
+            android:label="@string/title_activity_borrar" >
+        </activity>
     </application>
 
 </manifest>

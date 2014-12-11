@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,10 @@ public class Activity2 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity2);
 
+        //CAMBIAR TITULO A LA ACTIVITY
+        setTitle("Edit Contact");
+
+
         //deserealizamos el objeto y lo metemos en la variable anteriormente creada.
         contact = (Contact)getIntent().getSerializableExtra("contact");
 
@@ -30,6 +35,8 @@ public class Activity2 extends Activity {
         Button btnOK = (Button)findViewById(R.id.btnOK);
         final EditText txtNameEdited = (EditText)findViewById(R.id.txtNameEdited);
         final EditText txtPhoneEdited = (EditText)findViewById(R.id.txtPhoneEdited);
+        //--- llamamos al boton delete
+        Button btnDelete = (Button)findViewById(R.id.btnDelete);
         //-------------llamada hasta aqui--------------------------
 
         //LOS VALORES ENCONTRADOS EN EL OBX.
@@ -37,12 +44,14 @@ public class Activity2 extends Activity {
         txtPhoneEdited.setText(contact.getPhone().toString());
 
         //EDITAMOS GRAFICOS ;D
-        btnOK.setTextColor(Color.WHITE);
-        btnOK.setBackgroundColor(Color.BLACK);
+        btnOK.setTextColor(Color.BLACK);
+        btnOK.setBackgroundColor(Color.GREEN);
+        btnDelete.setTextColor(Color.BLACK);
+        btnDelete.setBackgroundColor(Color.RED);
         txtNameEdited.setTextColor(Color.WHITE);
-        txtNameEdited.setBackgroundColor(Color.BLACK);
+        txtNameEdited.setBackgroundColor(Color.GRAY);
         txtPhoneEdited.setTextColor(Color.WHITE);
-        txtPhoneEdited.setBackgroundColor(Color.BLACK);
+        txtPhoneEdited.setBackgroundColor(Color.GRAY);
         //EDITAR GRAFICOS HASTA AQUI....
 
 
@@ -82,8 +91,45 @@ public class Activity2 extends Activity {
 
             }
         });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Contact c = new Contact(txtNameEdited.getText().toString(), txtPhoneEdited.getText().toString());
+
+                Intent intent = new Intent(Activity2.this, Borrar.class);
+                intent.putExtra("deleteContact", c);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
 
+    //------------------ON ACTIVITY RESULT
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode==1 && resultCode==RESULT_OK)
+        {
+            contact = (Contact)data.getSerializableExtra("contact");
+            //creamos un intent para llamar a la activity listar
+            Intent intent = new Intent(Activity2.this, Listar.class);
+
+            //serializamos el objeto y lo enviamos en el intento.
+            intent.putExtra("contact", contact);
+
+            //IMPRIMO EL TOAST PARA MI MISMO PARA VER SI SE ELIMINÓ EL OBJETO
+            String msg="deleted?? :"+"Name::: "+contact.getName().toString()+" Phone::: "+contact.getPhone().toString();
+            showToast(msg);
+
+            //enviamos un resultado ok y el intento con el objeto dentro, por supuesto.
+            setResult(RESULT_OK, intent);
+
+            //finalizamos nuestra actividad actual.
+            finish();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
